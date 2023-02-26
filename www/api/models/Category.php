@@ -19,7 +19,7 @@ class Category {
     }
 
     public function load() {
-        $query = $this->pdo->prepare('SELECT * FROM categories WHERE id = :id');
+        $query = $this->pdo->prepare('SELECT * FROM db.categories WHERE id = :id');
         $query->bindValue(':id', $this->id, PDO::PARAM_INT);
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -33,7 +33,7 @@ class Category {
     public function store() {
         $result = false;
         if ($this->id) {
-            $query = $this->pdo->prepare('SELECT * FROM categories WHERE id = :id');
+            $query = $this->pdo->prepare('SELECT * FROM db.categories WHERE id = :id');
             $query->bindValue(':id', $this->id, PDO::PARAM_INT);
             $query->execute();
             $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -41,7 +41,7 @@ class Category {
 
         if ($result) {
             # update the product
-            $query = $this->pdo->prepare('UPDATE categories SET name = :name, description = :description, tax_percentage = :tax_percentage WHERE id = :id');
+            $query = $this->pdo->prepare('UPDATE db.categories SET name = :name, description = :description, tax_percentage = :tax_percentage WHERE id = :id');
             $query->bindValue(':id', $this->id, PDO::PARAM_INT);
             $query->bindValue(':name', $this->name, PDO::PARAM_STR);
             $query->bindValue(':description', $this->description, PDO::PARAM_STR);
@@ -49,7 +49,7 @@ class Category {
             $query->execute();
         } else {
             # insert the product
-            $query = $this->pdo->prepare('INSERT INTO categories (name, description, tax_percentage) VALUES (:name, :description, :tax_percentage)');
+            $query = $this->pdo->prepare('INSERT INTO db.categories (name, description, tax_percentage) VALUES (:name, :description, :tax_percentage)');
             $query->bindValue(':name', $this->name, PDO::PARAM_STR);
             $query->bindValue(':description', $this->description, PDO::PARAM_STR);
             $query->bindValue(':tax_percentage', $this->tax_percentage, PDO::PARAM_INT);
@@ -60,7 +60,7 @@ class Category {
 
     static public function getAll() {
         global $pdo;
-        $query = $pdo->prepare('SELECT * FROM categories');
+        $query = $pdo->prepare('SELECT * FROM db.categories');
         $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }

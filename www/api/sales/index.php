@@ -1,5 +1,6 @@
 <?php
 require_once(__DIR__.'/../models/Sale.php');
+require_once(__DIR__.'/../helpers/common.php');
 require_once(__DIR__.'/../helpers/response.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {

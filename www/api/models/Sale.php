@@ -17,7 +17,7 @@ class Sale {
     }
 
     public function load() {
-        $query = $this->pdo->prepare('SELECT * FROM sales WHERE id = :id');
+        $query = $this->pdo->prepare('SELECT * FROM db.sales WHERE id = :id');
         $query->bindValue(':id', $this->id, PDO::PARAM_INT);
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -30,7 +30,7 @@ class Sale {
     public function store() {
         $result = false;
         if ($this->id) {
-            $query = $this->pdo->prepare('SELECT * FROM sales WHERE id = :id');
+            $query = $this->pdo->prepare('SELECT * FROM db.sales WHERE id = :id');
             $query->bindValue(':id', $this->id, PDO::PARAM_INT);
             $query->execute();
             $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -38,14 +38,14 @@ class Sale {
         
         if ($result) {
             # update the product
-            $query = $this->pdo->prepare('UPDATE sales SET cart = :cart, date = :date WHERE id = :id');
+            $query = $this->pdo->prepare('UPDATE db.sales SET cart = :cart, date = :date WHERE id = :id');
             $query->bindValue(':id', $this->id, PDO::PARAM_INT);
             $query->bindValue(':cart', $this->cart, PDO::PARAM_STR);
             $query->bindValue(':date', $this->date, PDO::PARAM_STR);
             $query->execute();
         } else {
             # insert the product
-            $query = $this->pdo->prepare('INSERT INTO sales (cart, date) VALUES (:cart, :date)');
+            $query = $this->pdo->prepare('INSERT INTO db.sales (cart, date) VALUES (:cart, :date)');
             $query->bindValue(':cart', $this->cart, PDO::PARAM_STR);
             $query->bindValue(':date', $this->date, PDO::PARAM_STR);
             $query->execute();
@@ -55,7 +55,7 @@ class Sale {
 
     static public function getAll() {
         global $pdo;
-        $query = $pdo->prepare('SELECT * FROM sales');
+        $query = $pdo->prepare('SELECT * FROM db.sales');
         $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
