@@ -31,6 +31,10 @@ export const StyledTab = tw.button`
     mx-1
     items-center
     justify-center
+    ease-in
+    duration-75
+    hover:-translate-y-1
+    ui-selected:-translate-y-1
     ui-selected:bg-blue-800
     ui-selected:text-white
     ui-not-selected:bg-zinc-700
