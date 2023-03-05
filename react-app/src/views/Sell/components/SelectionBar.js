@@ -1,14 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { Stack, TextField, InputAdornment, Autocomplete, styled } from "@mui/material";
+import { Stack, Autocomplete, styled, Typography, TextField } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import axios from "axios";
-import { localMarketBaseUrl } from "../../../config/api";
+import { localMarketBaseUrl } from "config/api";
 import QuantitySelection from "./QuantitySelection";
-import { darken, lighten } from '@mui/system';
+import { lighten } from "@mui/system";
+
+const StyledTypography = styled(Typography)`
+    margin: 5px 10px;
+    width: 600px;
+    color: black;
+`;
 
 const StyledTextField = styled(TextField)`
     margin: 5px 10px;
-    width: 600px;
+    width: 400px;
+    @media (max-width: 650px) {
+        width: 250px;
+    }
+    @media (max-width: 400px) {
+        width: 100px;
+    }
     color: white;
 `;
 
@@ -24,9 +36,8 @@ const useStyles = makeStyles()((theme) => ({
         padding: "10px",
         color: theme.palette.primary.main,
         backgroundColor: lighten(theme.palette.primary.main, 0.8),
-    }
+    },
 }));
-
 
 const SelectionBar = (props) => {
     const [availableItems, setAvailableItems] = useState([]);
@@ -96,43 +107,43 @@ const SelectionBar = (props) => {
     return (
         <>
             <Stack direction="row" className={classes.stack}>
-                <Autocomplete
-                    id="search-bar"
-                    options={availableItems.sort((a, b) =>
-                        a.name.localeCompare(b.name)
-                    )}
-                    groupBy={(option) =>
-                        itemsCategories.find(
-                            (category) => category.id === option.category_id
-                        ).name
-                    }
-                    getOptionLabel={(option) => option.name}
-                    renderOption={(props, option) => (
-                        <li {...props} key={option.id}>
-                            {option.name}
-                        </li>
-                    )}
-                    renderGroup={(params) => (
-                        <li {...params} key={params.key}>
-                            <div className={classes.groupHeader}>{params.group}</div>
-                            <ul>{params.children}</ul>
-                        </li>
-                    )}
-                    renderInput={(params) => (
-                        <StyledTextField
-                            className={classes.input}
-                            {...params}
-                            label="Produto"
-                            variant="filled"
-                        />
-                    )}
-                />
+                {props.page === "sell" ? (
+                    <Autocomplete
+                        options={availableItems.sort((a, b) =>
+                            a.category.name.charAt(0).localeCompare(b.category.name.charAt(0))
+                        )}
+                        groupBy={(option) => option.category.name}
+                        getOptionLabel={(option) => option.name}
+                        renderOption={(props, option) => (
+                            <li {...props} key={option.id}>
+                                {option.name}
+                            </li>
+                        )}
+                        renderGroup={(params) => (
+                            <li {...params} key={params.key}>
+                                <div className={classes.groupHeader}>
+                                    {params.group}
+                                </div>
+                                <ul>{params.children}</ul>
+                            </li>
+                        )}
+                        renderInput={(params) => (
+                            <StyledTextField
+                                {...params}
+                                label="Produto"
+                                variant="filled"
+                            />
+                        )}
+                    />
+                ) : (
+                    <StyledTypography
+                    >{props.product_name}</StyledTypography>
+                )}
 
                 <QuantitySelection
-                    className={classes.quantity}
                     handleAddQuantity={handleAddQuantity}
                     handleDecreaseQuantity={handleDecreaseQuantity}
-                    quantity={quantity}
+                    quantity={props.quantity}
                 />
             </Stack>
         </>

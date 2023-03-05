@@ -6,7 +6,11 @@ require_once(__DIR__.'/../helpers/response.php');
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     # return specified product if a id is passed in query params
     if (isset($_GET['id'])) {
-        $product = new Product($_GET['id']);
+        if (!is_numeric($_GET['id'])) {
+            Response::error(400);
+        }
+        $product = new Product();
+        $product->id = $_GET['id'];
         $product->load();
         if (!$product->id) {
             Response::error(404);
@@ -23,12 +27,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $product->id = $_POST['id'];
     }
     $product->name = $_POST['name'];
-    $product->description = $_POST['description'];
     $product->price = $_POST['price'];
     $product->category_id = $_POST['category_id'];
     $product->available_amount = $_POST['available_amount'];
     $product->store();
+    $product->load();
 
     $status_code = isset($_POST['id']) ? 200 : 201;
+
     Response::json($product, $status_code);
+} elseif ($_SERVER['REQUEST_METHOD'] == "DELETE") {
+    $product = new Product();
+    $product->id = $_GET['id'];
+    if ($product->delete() === 0) {
+        Response::error(404);
+    }
+
+    Response::json([]);
 }

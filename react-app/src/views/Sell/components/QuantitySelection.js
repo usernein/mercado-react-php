@@ -1,12 +1,10 @@
 import React from "react";
 import { makeStyles } from "tss-react/mui";
 import { Chip, IconButton, Stack } from "@mui/material";
-import AddCircleSharpIcon from "@mui/icons-material/AddCircleSharp";
-import RemoveCircleSharpIcon from "@mui/icons-material/RemoveCircleSharp";
 import { MdDeleteForever } from "react-icons/md";
-import { IoAddCircleSharp, IoAddSharp } from 'react-icons/io5';
-import KeyboardArrowUpSharpIcon from '@mui/icons-material/KeyboardArrowUpSharp';
-import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp';
+import { IoAddCircleSharp } from "react-icons/io5";
+import KeyboardArrowUpSharpIcon from "@mui/icons-material/KeyboardArrowUpSharp";
+import KeyboardArrowDownSharpIcon from "@mui/icons-material/KeyboardArrowDownSharp";
 
 const useStyles = makeStyles()((theme) => ({
     stack: {
@@ -33,7 +31,7 @@ const useStyles = makeStyles()((theme) => ({
     add: {
         color: "green",
         marginLeft: "50px",
-    }
+    },
 }));
 
 function QuantitySelection(props) {

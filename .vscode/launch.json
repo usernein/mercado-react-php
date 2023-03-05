@@ -5,6 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch React Firefox",
+            "request": "launch",
+            "type": "firefox",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/react-app/src"
+        },
+
+        {
             "command": "npm start",
             "name": "Run npm start",
             "request": "launch",

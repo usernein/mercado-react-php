@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { localMarketBaseUrl } from "./config/api";
+import { localMarketBaseUrl } from "config/api";
 import axios from "axios";
 import { FixedSizeList } from "react-window";
 import ProductCard from "./ProductCard";
