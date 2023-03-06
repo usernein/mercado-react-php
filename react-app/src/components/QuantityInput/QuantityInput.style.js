@@ -5,7 +5,6 @@ export const StyledQuantityInput = tw.div`
     flex
     flex-row
     border-red-50
-    sm:mx-3
     ml-auto
 `;
 

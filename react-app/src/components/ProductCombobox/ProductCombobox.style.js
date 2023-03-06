@@ -22,9 +22,37 @@ export const StyledComboboxInput = tw.input`
 `;
 
 export const StyledComboboxOptionList = tw.ul`
-absolute -top-64 mt-1 max-h-60 w-full overflow-auto rounded-md bg-zinc-700 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm
+    absolute
+    -top-64
+    mt-1
+    max-h-60
+    w-50
+    sm:w-64
+    text-xs
+    sm:text-sm
+    overflow-y-auto
+    overflow-x-hidden
+    rounded-md
+    bg-zinc-800
+    py-1
+    shadow-lg
+    ring-1
+    ring-black
+    ring-opacity-5
+    focus:outline-none
+    divide-dotted
+    divide-y-2
+    divide-neutral-900/70
 `;
 
 export const StyledComboboxOptionItem = tw.li`
-relative cursor-default select-none py-2 pl-10 pr-4
+    relative
+    cursor-default
+    select-none
+    py-2
+    pl-5
+    pr-4
+    h-8
+    ui-active:text-blue-500
+    ui-active:translate-x-1
 `;

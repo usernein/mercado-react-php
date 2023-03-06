@@ -1,7 +1,8 @@
 import tw from "tailwind-styled-components";
 
 export const StyledBottomBar = tw.div`
-    block
+    flex
+    flex-col
     fixed
     inset-x-0
     bottom-0
@@ -17,18 +18,22 @@ export const StyledNavigationBar = tw.div`
     flex
     flex-row
     items-center
+    justify-center
     bg-transparent
     px-2
     py-2
 `;
 
 export const StyledTab = tw.button`
+    w-3/12
+    text-[3.6vw]
+    sm:w-48
+    sm:text-base
     px-4
+    mx-2
     rounded-xl
     flex
-    flex-grow
     h-10
-    mx-1
     items-center
     justify-center
     ease-in
