@@ -1,11 +1,18 @@
 import React from 'react'
 import { DeleteButton, StyledProductActionsBar, SubmitButton } from './ProductActionsBar.style';
 
-function ProductActionsBar () {
+function ProductActionsBar (props) {
+    const isActionWanted = (action) => {
+        return !props.actions || action === props.actions || props.actions.includes(action);
+    };
     return (
         <StyledProductActionsBar>
-            <DeleteButton />
-            <SubmitButton />
+            {isActionWanted('delete') && (
+                <DeleteButton onClick={props.onDelete} />
+            )}
+            {isActionWanted('submit') && (
+                <SubmitButton onClick={props.onSubmit} />
+            )}
         </StyledProductActionsBar>
     );
 }

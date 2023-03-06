@@ -21,15 +21,19 @@ const ProductSelectionBar = (props) => {
         fetchProductList();
     }, []);
 
+    const filteredProducts = products.filter((product) =>
+        product.name.toLowerCase().includes(inputValue.toLowerCase())
+    );
+
     return (
         <StyledSelectionBar>
             <ProductCombobox
-                products={products}
+                products={filteredProducts}
                 defaultValue={selectedProduct}
                 onChange={setSelectedProduct}
-                onInputChange={setInputValue}
+                onInputChange={(e) => setInputValue(e.target.value)}
             />
-            <QuantityInput value={quantity} setQuantity={setQuantity}/>
+            <QuantityInput value={quantity} setQuantity={setQuantity} />
             <ProductActionsBar />
         </StyledSelectionBar>
     );

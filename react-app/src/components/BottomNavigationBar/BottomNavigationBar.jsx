@@ -6,17 +6,21 @@ import { StyledBottomBar, StyledNavigationBar, StyledTab } from "./BottomNavigat
 import ProductSelectionBar from "components/ProductSeletionBar/ProductSelectionBar";
 
 function BottomNavigationBar(props) {
+    const onTabChange = (index) => {
+        let pages = ["inventory", "buy", "sales"];
+        props.setPage(pages[index]);
+    }
     return (
         <StyledBottomBar>
-            {props.page === "vender" && (
+            {props.page === "buy" && (
                 <ProductSelectionBar page="sell" quantity={0} />
             )}
 
-            <Tab.Group defaultIndex={1}>
+            <Tab.Group defaultIndex={1} onChange={onTabChange}>
                 <Tab.List as={StyledNavigationBar}>
-                    <Tab as={StyledTab}>Catálogo<BiPackage className="ml-1"/></Tab>
-                    <Tab as={StyledTab}>Venda<BiMoney className="ml-1"/> </Tab>
-                    <Tab as={StyledTab}>Registros<BiHistory className="ml-1"/> </Tab>
+                    <Tab as={StyledTab}>Inventário<BiPackage className="ml-1"/></Tab>
+                    <Tab as={StyledTab}>Comprar<BiMoney className="ml-1"/> </Tab>
+                    <Tab as={StyledTab}>Vendas<BiHistory className="ml-1"/> </Tab>
                 </Tab.List>
             </Tab.Group>
         </StyledBottomBar>

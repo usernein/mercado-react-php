@@ -30,6 +30,7 @@ export const StyledDeleteButton = tw.button`
     items-center
     justify-center
     flex
+    duration-75
 `;
 
 export const StyledSubmitButton = tw(StyledDeleteButton)`

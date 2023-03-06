@@ -1,10 +1,10 @@
 import React from 'react'
 import { Styled[FTName] } from './[FTName].style';
 
-function [FTName] () {
+function [FTName] (props) {
     return (
         <Styled[FTName]>
-        
+
         </Styled[FTName]>
     );
 }

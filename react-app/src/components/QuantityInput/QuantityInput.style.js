@@ -20,13 +20,15 @@ export const StyledInput = tw.input`
     border-gray-700
     placeholder-zinc-600
     bg-blue-700
+    invalid:bg-red-700
     rounded-lg
     mx-0
     text-center
     font-extrabold
     text-base
     focus:outline-none
-    focus:border-blue-500
+    focus:valid:border-blue-500
+    invalid:border-red-500
 `;
 
 export const StyledMinusButton = tw.button`
@@ -35,6 +37,7 @@ export const StyledMinusButton = tw.button`
     mx-0
     bg-transparent
     hover:scale-150
+    duration-75
 `;
 
 export const StyledPlusButton = tw(StyledMinusButton)``;

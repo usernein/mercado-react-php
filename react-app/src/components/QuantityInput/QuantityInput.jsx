@@ -8,7 +8,7 @@ import {
 
 function QuantityInput(props) {
     const onMinusClick = () => {
-        props.setQuantity((value) => value > 0 && value - 1);
+        props.setQuantity((value) => value > 0? value - 1 : 0);
     }
     const onPlusClick = () => {
         props.setQuantity((value) => value + 1);
@@ -17,9 +17,12 @@ function QuantityInput(props) {
         <StyledQuantityInput>
             <MinusButton onClick={onMinusClick} />
             <StyledInput
-                type="numeric"
-                value={props.value || 0}
-                onChange={props.onInputChange}
+                type="text"
+                pattern="[0-9]*"
+                value={props.value}
+                onChange={(e) => {
+                    e.target.validity.valid && props.setQuantity(Number(e.target.value))
+                }}
             />
             <PlusButton onClick={onPlusClick} />
         </StyledQuantityInput>

@@ -6,7 +6,7 @@ export const StyledBottomBar = tw.div`
     fixed
     inset-x-0
     bottom-0
-    pb-2
+    py-2
     z-10
     bg-zinc-800
     shadow-lg

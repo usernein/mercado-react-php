@@ -10,6 +10,7 @@ const StyledApp = tw.div`
     bg-zinc-900
     text-slate-200
     font-bold
+    overflow-y-scroll
 `;
 
 export default StyledApp;

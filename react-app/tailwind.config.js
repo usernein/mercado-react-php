@@ -11,6 +11,7 @@ module.exports = {
         },
     },
     plugins: [
-    	require('@headlessui/tailwindcss')
+    	require('@headlessui/tailwindcss'),
+    	require("tailwindcss-animate")
     ],
 };
