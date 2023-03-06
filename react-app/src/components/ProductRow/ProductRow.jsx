@@ -7,7 +7,7 @@ function ProductRow (props) {
     return (
         <StyledProductRow>
             <ProductName>{props.product.name}</ProductName>
-            <QuantityInput value={props.product.quantity} />
+            <QuantityInput value={props.saleInfo? props.saleInfo.amount : 0} />
             <ProductActionsBar actions="delete" />
         </StyledProductRow>
     );

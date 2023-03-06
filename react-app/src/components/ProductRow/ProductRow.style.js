@@ -4,7 +4,7 @@ export const StyledProductRow = tw.div`
     flex
     flex-row
     items-center
-    py-3
+    mt-1
 `;
 
 export const ProductName = tw.div`
@@ -19,6 +19,7 @@ export const ProductName = tw.div`
     text-sm
     border-2
     border-gray-700
+    border-opacity-50
     placeholder-zinc-600
     bg-transparent
     rounded-md

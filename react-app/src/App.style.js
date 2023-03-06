@@ -1,9 +1,8 @@
 import tw from "tailwind-styled-components";
 
-const StyledApp = tw.div`
+export const StyledApp = tw.div`
     flex
     items-center
-    justify-center
     flex-col
     w-full
     h-screen
@@ -13,4 +12,6 @@ const StyledApp = tw.div`
     overflow-y-scroll
 `;
 
-export default StyledApp;
+export const StyledContent = tw.div`
+    w-11/12
+`;

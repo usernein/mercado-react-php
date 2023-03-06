@@ -1,22 +1,21 @@
 import React from "react";
-import { useGetProductsQuery } from "store/products";
 import { StyledProductsList } from "./ProductsList.style";
-import { CgSpinner } from "react-icons/cg";
 import ProductRow from "components/ProductRow";
 
 function ProductsList(props) {
-    const { data, isLoading, isSuccess, error } =
-        useGetProductsQuery();
-
+    const getSaleInfo = (p) => {
+        return props.sale.products.find(
+            (sp) => sp.product_id === p.id
+        );
+    }
     return (
         <StyledProductsList>
-            {isLoading ? (
-                <div className="mt-10 animate-spin scale-150"><CgSpinner /></div>
-            ) : isSuccess ? (
-                data.map((p) => <ProductRow product={p} />)
-            ) : (
-                error
-            )}
+            {props.products.map((p) => {
+                const params = props.sale? {saleInfo: getSaleInfo(p)} : {};
+                return (
+                    <ProductRow key={p.id} product={p} {...params}/>
+                );
+            })}
         </StyledProductsList>
     );
 }

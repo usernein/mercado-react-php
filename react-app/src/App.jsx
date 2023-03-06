@@ -2,22 +2,27 @@ import * as React from "react";
 import { useState } from "react";
 import BottomNavigationBar from "components/BottomNavigationBar/BottomNavigationBar";
 
-import StyledApp from "./App.style";
-import { Provider } from "react-redux";
-import { store } from "./store";
-import ProductsView from "components/ProductsView";
+import { StyledApp, StyledContent } from "./App.style";
+import AppContextProvider from "store/AppContextProvider";
+import SaleProductsView from "components/SaleProductsView";
+import InventoryView from "components/InventoryView";
+import SalesView from "components/SalesView";
 
 function App() {
     const [Page, setPage] = useState("buy");
 
     return (
-        <Provider store={store}>
+        <AppContextProvider>
             <StyledApp>
-                {Page === "buy" && <ProductsView />}
+                <StyledContent>
+                    {Page === "inventory" && <InventoryView />}
+                    {Page === "buy" && <SaleProductsView />}
+                    {Page === "sale" && <SalesView />}
+                </StyledContent>
 
                 <BottomNavigationBar page={Page} setPage={setPage} />
             </StyledApp>
-        </Provider>
+        </AppContextProvider>
     );
 }
 
