@@ -95,6 +95,15 @@ const AppContextProvider = ({ children }) => {
         return sales.find((s) => s.id === id);
     }
 
+    const arrayGroupBy = (items, callback) => {
+        return items.reduce((groups, item) => {
+            const category = callback(item);
+            groups[category] = groups[category] ?? [];
+            groups[category].push(item);
+            return groups;
+        }, [])
+    }
+
     return (
         <AppContext.Provider
             value={{
@@ -106,7 +115,8 @@ const AppContextProvider = ({ children }) => {
                 updateSale,
                 currentSaleId,
                 getProductById,
-                getSaleById
+                getSaleById,
+                arrayGroupBy
             }}
         >
             {children}

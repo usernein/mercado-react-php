@@ -10,7 +10,8 @@ const AppContext = React.createContext({
     updateSale: dummyFunction,
     currentSaleId: 0,
     getProductById: null,
-    getSaleById: null
+    getSaleById: null,
+    arrayGroupBy: null,
 });
 
 export default AppContext;

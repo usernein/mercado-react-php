@@ -43,4 +43,5 @@ export const StyledTab = tw.button`
     ui-selected:bg-blue-800
     ui-selected:text-white
     ui-not-selected:bg-zinc-700
-    ui-not-selected:text-zinc-400`;
+    ui-not-selected:text-zinc-400
+`;

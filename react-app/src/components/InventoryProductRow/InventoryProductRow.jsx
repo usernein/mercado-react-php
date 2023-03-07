@@ -1,10 +1,22 @@
-import React from 'react'
-import { StyledInventoryProductRow } from './InventoryProductRow.style';
+//@ts-check
+import React from "react";
+import {
+    StyledInventoryProductRow,
+    StyledProductName,
+    StyledProductPrice,
+    StyledProductTaxedPrice,
+} from "./InventoryProductRow.style";
 
-function InventoryProductRow (props) {
+function InventoryProductRow(props) {
     return (
         <StyledInventoryProductRow>
-            <InfoBox>{props.product.name}</InfoBox>
+            <StyledProductName>{props.product.name}</StyledProductName>
+            <StyledProductPrice>R$ {props.product.price}</StyledProductPrice>
+            <StyledProductTaxedPrice>
+                R${" "}
+                {Number(props.product.price) +
+                    Number(props.product.price) * Number(props.product.category.tax_percentage)}
+            </StyledProductTaxedPrice>
         </StyledInventoryProductRow>
     );
 }

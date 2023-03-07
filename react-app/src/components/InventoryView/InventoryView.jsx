@@ -1,15 +1,26 @@
-import ProductsList from 'components/ProductsList';
-import React, { useContext } from 'react'
-import AppContext from 'store/AppContext';
-import { StyledInventoryView } from './InventoryView.style';
+import InventoryProductsList from "components/InventoryProductsList";
+import ProductsList from "components/ProductsList";
+import React, { useContext } from "react";
+import AppContext from "store/AppContext";
+import { StyledInventoryView, StyledCategoryName } from "./InventoryView.style";
 
-
-function InventoryView (props) {
-    const { products } = useContext(AppContext);
+function InventoryView(props) {
+    const { products, arrayGroupBy } = useContext(AppContext);
+    const groupedProducts = arrayGroupBy(
+        products,
+        (product) => product.category.name
+    );
 
     return (
         <StyledInventoryView>
-            <ProductsList products={products} />
+            {Object.keys(groupedProducts).map((categoryName) => {
+                return (
+                    <>
+                        <StyledCategoryName>{categoryName}</StyledCategoryName>
+                        <InventoryProductsList key={categoryName} products={groupedProducts[categoryName]} />
+                    </>
+                );
+            })}
         </StyledInventoryView>
     );
 }

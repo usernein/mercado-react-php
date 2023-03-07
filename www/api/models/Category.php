@@ -20,7 +20,7 @@ class Category {
     public function load() {
         // $query = $this->pdo->prepare('SELECT * FROM categories WHERE id = :id');
         $query = $this->pdo->prepare("
-            select c.*, jsonb_object_agg(p.id, to_jsonb(p) - 'category_id') products 
+            select c.*, jsonb_object_agg(p.id, to_jsonb(p) - 'category_id') products
             from products p
             inner join categories c on p.category_id = c.id
             where c.id = :id
@@ -82,7 +82,7 @@ class Category {
     static public function getAll() {
         global $pdo;
         $query = $pdo->prepare("
-            select c.*, jsonb_object_agg(p.id, to_jsonb(p) - 'category_id') products 
+            select c.*, jsonb_object_agg(p.id, to_jsonb(p) - 'category_id') products
             from products p
             inner join categories c on p.category_id = c.id
             group by c.id
