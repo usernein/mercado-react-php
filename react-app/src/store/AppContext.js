@@ -8,7 +8,9 @@ const AppContext = React.createContext({
     updateProduct: dummyFunction,
     updateCategory: dummyFunction,
     updateSale: dummyFunction,
-    currentSaleId: 0
+    currentSaleId: 0,
+    getProductById: null,
+    getSaleById: null
 });
 
 export default AppContext;

@@ -87,6 +87,14 @@ const AppContextProvider = ({ children }) => {
         await axios.post(localMarketBaseUrl + "/sales", requestBody);
     };
 
+    const getProductById = (id) => {
+        return products.find((p) => p.id === id);
+    }
+
+    const getSaleById = (id) => {
+        return sales.find((s) => s.id === id);
+    }
+
     return (
         <AppContext.Provider
             value={{
@@ -97,6 +105,8 @@ const AppContextProvider = ({ children }) => {
                 updateCategory,
                 updateSale,
                 currentSaleId,
+                getProductById,
+                getSaleById
             }}
         >
             {children}

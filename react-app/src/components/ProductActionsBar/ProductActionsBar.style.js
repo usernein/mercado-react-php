@@ -4,13 +4,8 @@ import { HiTrash, HiCheck } from 'react-icons/hi';
 
 export const StyledProductActionsBar = tw.div`
     bg-blend-multiply
-    py-2
-    px-2
-    h-10
-    w-20
-    sm:w-24
-    min-w-[6rem]
-
+    py-1
+    px-1
     mr-3
     bg-zinc-700
     rounded-lg
@@ -24,8 +19,10 @@ export const StyledDeleteButton = tw.button`
     bg-red-500
     hover:bg-red-600
     hover:scale-110
-    w-8
-    h-8
+    w-6
+    h-6
+    sm:w-8
+    sm:h-8
     rounded-lg
     items-center
     justify-center
@@ -34,6 +31,7 @@ export const StyledDeleteButton = tw.button`
 `;
 
 export const StyledSubmitButton = tw(StyledDeleteButton)`
+    ml-3
     bg-green-500
     hover:bg-green-600
 `;
