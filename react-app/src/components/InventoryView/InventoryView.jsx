@@ -1,5 +1,4 @@
 import InventoryProductsList from "components/InventoryProductsList";
-import ProductsList from "components/ProductsList";
 import React, { useContext } from "react";
 import AppContext from "store/AppContext";
 import { StyledInventoryView, StyledCategoryName } from "./InventoryView.style";

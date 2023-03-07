@@ -1,4 +1,4 @@
-import ProductsList from 'components/ProductsList';
+import SaleProductsList from 'components/SaleProductsList';
 import React, { useContext } from 'react'
 import AppContext from 'store/AppContext';
 import { StyledSaleProductsView } from './SaleProductsView.style';
@@ -14,7 +14,7 @@ function SaleProductsView (props) {
 
     return (
         <StyledSaleProductsView>
-            <ProductsList products={filteredProducts} sale={currentSale} />
+            <SaleProductsList products={filteredProducts} sale={currentSale} />
         </StyledSaleProductsView>
     );
 }

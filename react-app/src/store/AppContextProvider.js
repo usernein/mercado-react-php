@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { localMarketBaseUrl } from "config/api";
 import AppContext from "./AppContext";
+import { demoCategories, demoProducts, demoSales } from "./DemoValues";
 
 const AppContextProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
@@ -9,12 +10,17 @@ const AppContextProvider = ({ children }) => {
     const [categories, setCategories] = useState([]);
     const [currentSaleId, setCurrentSaleId] = useState(0);
 
+    const queryParams = new URLSearchParams(window.location.search);
+    const isDemo = queryParams.get("demo") === "true";
+
     const localStorageLogic = async () => {
         const storedSaleId = localStorage.getItem("currentSaleId");
         if (!storedSaleId) {
-            const { data } = await axios.post(`${localMarketBaseUrl}/sales`, {
-                finished: false
-            });
+            const { data } = isDemo
+                ? { data: { id: 1 } }
+                : await axios.post(`${localMarketBaseUrl}/sales`, {
+                    finished: false,
+                });
             const createdSaleId = data.id;
             localStorage.setItem("currentSaleId", createdSaleId);
             setCurrentSaleId(createdSaleId);
@@ -22,20 +28,26 @@ const AppContextProvider = ({ children }) => {
             await fetchValues();
             return;
         }
-        setCurrentSaleId(Number(storedSaleId? storedSaleId : 0));
+        setCurrentSaleId(Number(storedSaleId ? storedSaleId : 0));
     };
 
     const fetchValues = async () => {
-        const { data: products } = await axios.get(
-            `${localMarketBaseUrl}/products`
-        );
-        const { data: sales } = await axios.get(`${localMarketBaseUrl}/sales`);
-        const { data: categories } = await axios.get(
-            `${localMarketBaseUrl}/products/categories`
-        );
-        setProducts(products);
-        setSales(sales);
-        setCategories(categories);
+        if (isDemo) {
+            setProducts(demoProducts);
+            setSales(demoSales);
+            setCategories(demoCategories);
+        } else {
+            const { data: products } = await axios.get(
+                `${localMarketBaseUrl}/products`
+            );
+            const { data: sales } = await axios.get(`${localMarketBaseUrl}/sales`);
+            const { data: categories } = await axios.get(
+                `${localMarketBaseUrl}/products/categories`
+            );
+            setProducts(products);
+            setSales(sales);
+            setCategories(categories);
+        }
     };
 
     useEffect(() => {
@@ -89,11 +101,11 @@ const AppContextProvider = ({ children }) => {
 
     const getProductById = (id) => {
         return products.find((p) => p.id === id);
-    }
+    };
 
     const getSaleById = (id) => {
         return sales.find((s) => s.id === id);
-    }
+    };
 
     const arrayGroupBy = (items, callback) => {
         return items.reduce((groups, item) => {
@@ -101,8 +113,8 @@ const AppContextProvider = ({ children }) => {
             groups[category] = groups[category] ?? [];
             groups[category].push(item);
             return groups;
-        }, [])
-    }
+        }, []);
+    };
 
     return (
         <AppContext.Provider
@@ -116,7 +128,7 @@ const AppContextProvider = ({ children }) => {
                 currentSaleId,
                 getProductById,
                 getSaleById,
-                arrayGroupBy
+                arrayGroupBy,
             }}
         >
             {children}

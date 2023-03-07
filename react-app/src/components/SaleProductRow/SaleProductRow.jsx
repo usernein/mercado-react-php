@@ -1,5 +1,5 @@
 import ProductActionsBar from "components/ProductActionsBar";
-import { ProductName } from "components/ProductRow/ProductRow.style";
+import { StyledProductName } from "components/InventoryProductRow/InventoryProductRow.style";
 import QuantityInput from "components/QuantityInput";
 import React, { useContext } from "react";
 import AppContext from "store/AppContext";
@@ -11,7 +11,7 @@ function SaleProductRow(props) {
 
     return (
         <StyledSaleProductRow>
-            <ProductName>{product.name}</ProductName>
+            <StyledProductName>{product.name}</StyledProductName>
             <QuantityInput value={props.saleItem.amount} />
             <ProductActionsBar actions="delete" />
         </StyledSaleProductRow>
