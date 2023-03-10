@@ -22,14 +22,20 @@ export const StyledComboboxInput = tw.input`
 `;
 
 export const StyledComboboxOptionList = tw.ul`
+    -translate-y-40
     absolute
+    animate-in
     bg-zinc-800
-    bottom-[calc(100%+2px)]
     divide-dotted
     divide-neutral-900/70
     divide-y-2
+    duration-150
+    ease-out
+    fade-in
     focus:outline-none
-    max-h-60
+    h-60
+    max-h-64
+    min-w-50
     mt-1
     overflow-x-hidden
     overflow-y-auto
@@ -38,15 +44,11 @@ export const StyledComboboxOptionList = tw.ul`
     ring-zinc-400
     rounded-md
     shadow-lg
+    slide-in-from-bottom-20
     sm:text-sm
     sm:w-64
     text-xs
     w-50
-    animate-in
-    duration-150
-    fade-in
-    slide-in-from-bottom-20
-    ease-out
 `;
 
 export const StyledComboboxOptionItem = tw.li`

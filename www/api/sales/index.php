@@ -26,7 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_POST['id'])) {
         $sale->id = $_POST['id'];
     }
-    $sale->finished = $_POST['finished'];
+    $sale->finished = $_POST['finished'] ?? null;
+    $sale->products = json_decode($_POST['products'] ?? '[]');
+    $sale->taxes_price = $_POST['taxes_price'] ?? null;
+    $sale->total_price = $_POST['total_price'] ?? null;
     $sale->store();
     $sale->load();
 

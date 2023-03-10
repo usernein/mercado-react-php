@@ -1,0 +1,137 @@
+{
+    "Alimentos não perecíveis": {
+        "items": [
+            "Açúcar",
+            "Arroz",
+            "Café",
+            "Farinha",
+            "Feijão",
+            "Macarrão",
+            "Óleo",
+            "Pipoca",
+            "Sal"
+        ]
+    },
+    "Doces e guloseimas": {
+        "items": [
+            "Bala",
+            "Biscoito",
+            "Bolacha",
+            "Bolo",
+            "Chiclete",
+            "Chocolate",
+            "Cookie",
+            "Doce de leite",
+            "Gelatina",
+            "Geleia",
+            "Pirulito",
+            "Rosquinha",
+            "Torta"
+        ]
+    },
+    "Frutas, vegetais, grãos e leguminosas": {
+        "items": [
+            "Abacaxi",
+            "Alho",
+            "Aveia",
+            "Banana",
+            "Batata",
+            "Cebola",
+            "Cenoura",
+            "Ervilha",
+            "Grão de bico",
+            "Granola",
+            "Lentilha",
+            "Limão",
+            "Maçã",
+            "Manga",
+            "Milho",
+            "Pera",
+            "Pimentão",
+            "Quinoa",
+            "Salsa",
+            "Tomate",
+            "Uva"
+        ]
+    },
+    "Padaria e frios": {
+        "items": [
+            "Achocolatado",
+            "Bisnaguinha",
+            "Cereal",
+            "Danone",
+            "Manteiga",
+            "Margarina",
+            "Mortadela",
+            "Pão de cachorro-quente",
+            "Pão de forma",
+            "Pão de hambúrguer",
+            "Pão de queijo",
+            "Peito de peru",
+            "Presunto",
+            "Queijo",
+            "Requeijão",
+            "Salame",
+            "Torrada"
+        ]
+    },
+    "Sorvetes e congelados": {
+        "items": [
+            "Açaí",
+            "Hambúrguer",
+            "Lasanha",
+            "Picolé",
+            "Pizza",
+            "Pote de sorvete",
+            "Salsicha"
+        ]
+    },
+    "Bebidas": {
+        "items": [
+            "Água",
+            "Chá",
+            "Energético",
+            "Iogurte",
+            "Leite",
+            "Suco",
+            "Refrigerante"
+        ]
+    },
+    "Bebidas alcoólicas": {
+        "items": ["Cerveja", "Vodka", "Vinho"]
+    },
+    "Higiene pessoal": {
+        "items": [
+            "Absorvente",
+            "Algodão",
+            "Condicionador",
+            "Cotonete",
+            "Desodorante",
+            "Escova de cabelo",
+            "Escova de dente",
+            "Gel",
+            "Papel higiênico",
+            "Pasta de dente",
+            "Sabonete",
+            "Shampoo"
+        ]
+    },
+    "Limpeza": {
+        "items": [
+            "Água sanitária",
+            "Alvejante",
+            "Amaciante",
+            "Bacia",
+            "Balde",
+            "Desinfetante",
+            "Detergente",
+            "Esponja",
+            "Luva",
+            "Papel toalha",
+            "Rodo",
+            "Sabão em pó",
+            "Sabão em barra",
+            "Vassoura"
+        ]
+    }
+}

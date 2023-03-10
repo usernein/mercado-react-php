@@ -10,7 +10,7 @@ export const StyledInventoryProductRow = tw.div`
 
 export const StyledProductName = tw(StyledInfoBox)`
 w-full
-max-w-[50%]
+max-w-[40%]
 md:max-w-lg
 lg:max-w-xl`;
 
@@ -23,3 +23,9 @@ sm:w-15
 `;
 
 export const StyledProductTaxedPrice = tw(StyledProductPrice)``;
+
+export const ProductPriceInput = tw.input`
+    bg-transparent
+    w-8
+    focus:outline-none
+`;

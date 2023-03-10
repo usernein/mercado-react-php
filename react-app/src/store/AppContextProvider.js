@@ -3,32 +3,29 @@ import axios from "axios";
 import { localMarketBaseUrl } from "config/api";
 import AppContext from "./AppContext";
 import { demoCategories, demoProducts, demoSales } from "./DemoValues";
+import * as AxiosLogger from "axios-logger";
+
+const api = axios.create({
+    baseURL: localMarketBaseUrl,
+    headers: {
+        "Content-Type": "multipart/form-data",
+    },
+    timeout: 2000,
+});
+api.interceptors.request.use(AxiosLogger.requestLogger);
 
 const AppContextProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
     const [sales, setSales] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [currentSaleId, setCurrentSaleId] = useState(0);
+    const [currentSaleId, saveCurrentSaleId] = useState(1);
 
     const queryParams = new URLSearchParams(window.location.search);
     const isDemo = queryParams.get("demo") === "true";
 
-    const localStorageLogic = async () => {
-        const storedSaleId = localStorage.getItem("currentSaleId");
-        if (!storedSaleId) {
-            const { data } = isDemo
-                ? { data: { id: 1 } }
-                : await axios.post(`${localMarketBaseUrl}/sales`, {
-                    finished: false,
-                });
-            const createdSaleId = data.id;
-            localStorage.setItem("currentSaleId", createdSaleId);
-            setCurrentSaleId(createdSaleId);
-
-            await fetchValues();
-            return;
-        }
-        setCurrentSaleId(Number(storedSaleId ? storedSaleId : 0));
+    const setCurrentSaleId = (value) => {
+        localStorage.setItem("currentSaleId", value);
+        saveCurrentSaleId(Number(value));
     };
 
     const fetchValues = async () => {
@@ -37,13 +34,9 @@ const AppContextProvider = ({ children }) => {
             setSales(demoSales);
             setCategories(demoCategories);
         } else {
-            const { data: products } = await axios.get(
-                `${localMarketBaseUrl}/products`
-            );
-            const { data: sales } = await axios.get(`${localMarketBaseUrl}/sales`);
-            const { data: categories } = await axios.get(
-                `${localMarketBaseUrl}/products/categories`
-            );
+            const { data: products } = await api.get("/products");
+            const { data: sales } = await api.get("/sales");
+            const { data: categories } = await api.get("/products/categories");
             setProducts(products);
             setSales(sales);
             setCategories(categories);
@@ -51,14 +44,8 @@ const AppContextProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        const controller = new AbortController();
-
+        setCurrentSaleId(Number(localStorage.getItem("currentSaleId") ?? 0));
         fetchValues();
-        localStorageLogic();
-
-        return () => {
-            controller.abort();
-        };
     }, []);
 
     const updateProduct = async (product, keys) => {
@@ -68,8 +55,9 @@ const AppContextProvider = ({ children }) => {
         keys.forEach((key) => {
             requestBody[key] = product[key];
         });
+        requestBody["id"] = product["id"];
 
-        await axios.post(localMarketBaseUrl + "/products", requestBody);
+        await api.post("/products", requestBody);
     };
 
     const updateCategory = async (category, keys) => {
@@ -81,11 +69,9 @@ const AppContextProvider = ({ children }) => {
         keys.forEach((key) => {
             requestBody[key] = category[key];
         });
+        requestBody["id"] = category["id"];
 
-        await axios.post(
-            localMarketBaseUrl + "/products/categories",
-            requestBody
-        );
+        await api.post("/products/categories", requestBody);
     };
 
     const updateSale = async (sale, keys) => {
@@ -95,12 +81,17 @@ const AppContextProvider = ({ children }) => {
         keys.forEach((key) => {
             requestBody[key] = sale[key];
         });
+        requestBody["id"] = sale["id"];
 
-        await axios.post(localMarketBaseUrl + "/sales", requestBody);
+        await api.post("/sales", requestBody);
     };
 
     const getProductById = (id) => {
         return products.find((p) => p.id === id);
+    };
+
+    const getCategoryById = (id) => {
+        return categories.find((c) => c.id === id);
     };
 
     const getSaleById = (id) => {
@@ -116,6 +107,66 @@ const AppContextProvider = ({ children }) => {
         }, []);
     };
 
+    const createNewSale = async (product = null) => {
+        const { data: newSale } = await api.post("/sales", {
+            finished: false,
+            products: JSON.stringify( product? [{
+                id: product.id,
+                amount: product.amount,
+            }] : []),
+        });
+        setSales([...sales, newSale]);
+        setCurrentSaleId(newSale.id);
+    };
+
+    const updateSaleItem = async (product, sum = false) => {
+        await api.post("/sales", {
+            id: currentSaleId,
+            products: JSON.stringify([{
+                id: product.id,
+                amount: product.amount,
+            }]),
+            sum_items: sum,
+        });
+
+        const { taxes, total } = calculateSalePrices(currentSaleId);
+        const sale = getSaleById(currentSaleId);
+        sale.taxes_price = taxes;
+        sale.total_price = total;
+        updateSale(sale, ["taxes_price", "total_price"]);
+        fetchValues();
+    }
+
+    const calculatePrices = (product_id) => {
+        const product = getProductById(product_id);
+        const category = getCategoryById(product.category.id);
+        const tax_percentage = category.tax_percentage;
+
+        return {
+            taxes: Number(product.price) * Number(tax_percentage) / 100,
+            total: Number(product.price) + Number(product.price) * Number(tax_percentage) / 100,
+        }
+    }
+
+    const calculateSalePrices = (sale_id) => {
+        const sale = getSaleById(sale_id);
+
+        let taxes = 0;
+        let total = 0;
+
+        sale.products.forEach((sp) => {
+            const { taxes: productTaxes, total: productTotal } = calculatePrices(sp.product_id);
+            taxes += productTaxes*Number(sp.amount);
+            total += productTotal*Number(sp.amount);
+        })
+
+
+        return {
+            taxes,
+            total,
+        }
+    }
+
     return (
         <AppContext.Provider
             value={{
@@ -126,9 +177,14 @@ const AppContextProvider = ({ children }) => {
                 updateCategory,
                 updateSale,
                 currentSaleId,
+                setCurrentSaleId,
                 getProductById,
                 getSaleById,
                 arrayGroupBy,
+                createNewSale,
+                updateSaleItem,
+                calculatePrices,
+                calculateSalePrices
             }}
         >
             {children}

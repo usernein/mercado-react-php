@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS categories (
     id SERIAL PRIMARY KEY,
     name varchar(100) NOT NULL,
-    tax_percentage decimal(4,2) NOT NULL CHECK (tax_percentage >= 0) DEFAULT 0,
+    tax_percentage decimal(6,2) NOT NULL CHECK (tax_percentage >= 0) DEFAULT 0,
     created_at timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP);
 
 CREATE TABLE IF NOT EXISTS products (
@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS products (
 CREATE TABLE IF NOT EXISTS sales (
     id SERIAL PRIMARY KEY,
     finished boolean NOT NULL DEFAULT FALSE,
+    taxes_price decimal(10,2) NOT NULL CHECK (taxes_price >= 0) DEFAULT 0,
+    total_price decimal(10,2) NOT NULL CHECK (total_price >= 0) DEFAULT 0,
     created_at timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP);
 
 CREATE TABLE IF NOT EXISTS sales_products (

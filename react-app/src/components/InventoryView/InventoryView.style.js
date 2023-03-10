@@ -5,9 +5,3 @@ export const StyledInventoryView = tw.div`
     overflow-scroll
     w-full
 `;
-
-export const StyledCategoryName = tw.div`
-    mt-4
-    text-neutral-400
-    text-xs
-`;

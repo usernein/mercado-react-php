@@ -1,15 +1,26 @@
-import SaleProductRow from 'components/SaleProductRow';
-import React from 'react'
-import { StyledSaleProductsList } from './SaleProductsList.style';
+import SaleProductRow from "components/SaleProductRow";
+import React, { useContext } from "react";
+import AppContext from "store/AppContext";
+import { StyledSaleProductsList } from "./SaleProductsList.style";
 
-function SaleProductsList ({products, sale}) {
+function SaleProductsList({ saleId, products, sale }) {
+    const { products: contextProducts } = useContext(AppContext);
     return (
         <StyledSaleProductsList>
-            {products.map((p) => {
-                const saleItem = sale.products.find(sp => sp.product_id === p.id);
-                return (
-                    <SaleProductRow key={p.id} product={p} saleItem={saleItem} />
+            {contextProducts.map((p) => {
+                const saleItem = sale.products.find(
+                    (sp) => sp.product_id === p.id
                 );
+                if (saleItem) {
+                    return (
+                        <SaleProductRow
+                            key={p.id}
+                            product={p}
+                            saleItem={saleItem}
+                        />
+                    );
+                }
+                return null;
             })}
         </StyledSaleProductsList>
     );

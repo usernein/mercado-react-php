@@ -1,0 +1,1 @@
+python3 insert_products.py && python3 insert_sales.py

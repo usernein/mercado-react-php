@@ -3,9 +3,6 @@ import tw from "tailwind-styled-components";
 export const StyledBottomBar = tw.div`
     flex
     flex-col
-    fixed
-    inset-x-0
-    bottom-0
     py-2
     z-10
     bg-zinc-800

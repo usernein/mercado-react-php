@@ -4,4 +4,6 @@ export const StyledSaleProductsView = tw.div`
     mb-40
     overflow-scroll
     w-full
+    flex
+    flex-col
 `;
